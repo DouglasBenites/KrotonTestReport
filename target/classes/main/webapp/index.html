@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="reportApp">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <script src="js/angular.min.js"></script>
+	<script src="js/angular-resource.min.js"></script>
+	<script src="js/Util.js"></script>
+	<script src="js/json2.js"></script>
+	
+    <link rel="icon" href="favicon.ico" type="image/ico" sizes="16x16">
+
+    <title>Kroton Teste Report</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Morris Charts CSS -->
+    <link href="vendor/morrisjs/morris.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body>
+
+    <div>
+        <div id="page-wrapper" ng-controller="reportListController">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Processo de Reaproveitamento de Disciplinas</h1>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-code-fork fa-5x"></i>
+                                    <i class="fa fa-2x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="tmt">--</div>
+                                    <div>Tempo Médio de Atendimentos!<br/></div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-green">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-tasks fa-5x"></i>
+                                    <i class="fa fa-3x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="tram">--</div>
+                                    <div style="padding-bottom: 22px;">Atendimentos</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-yellow">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-clock-o fa-5x"></i>
+                                    <i class="fa fa-group   fa-2x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="tta">--</div>
+                                    <div>Tempo Total em Análise!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        	        <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="panel panel-red">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-xs-3">
+                                    <i class="fa fa-clock-o fa-5x"></i>
+                                    <i class="fa fa-graduation-cap fa-2x"></i>
+                                </div>
+                                <div class="col-xs-9 text-right">
+                                    <div class="huge" id="ttp">--</div>
+                                    <div>Tempo Total com Coordenador!</div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="#">
+                            <div class="panel-footer">
+                                <span class="pull-left">Ver Detalhes</span>
+                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                <div class="clearfix"></div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-lg-8">
+                  <table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th>
+				        	<button type="button" class="btn btn-danger" ng-click="pdf()">				        		<i class="fa fa-file-pdf-o btn-xs"></i>PDF
+				        	</button>
+				        	<button type="button" class="btn btn-success" ng-click="xls()">
+				        		<i class="fa fa-file-excel-o btn-xs"></i>Excel
+				        	</button>
+				        </th>
+				        <th style="text-align: right; font-style: italic; font-size: 10px">
+				        	(*para mais detalhes selecione a linha desejada)
+				        </th>
+				      </tr>
+				    </thead> 
+				    <tbody>
+				    </tbody>
+				  </table>
+                  <table class="table table-hover">
+				    <thead>
+				      <tr>
+				        <th><center>#</center></th>
+				        <th>Curso</th>
+				        <th>Status</th>
+				        <th>Serviço</th>
+				        <th>T.M.A.</th>
+				        <th>T.M.P.</th>
+				        <th>N.T.A</th>
+				        <th>+> T.A.</th>
+				        <th>Leadtime</th>
+				      </tr>
+				    </thead>
+				    <tbody>
+				      <tr ng-repeat="x in dados" ng-click="select(x.solicitacao)" style="cursor: pointer">
+				        <td>{{ x.solicitacao }}</td>
+				        <td>{{ x.curso }}</td>
+						<td>{{ x.stats }}</td>
+						<td>{{ x.servico }}</td>
+						<td>{{ x.tma }}</td>
+						<td>{{ x.tmp }}</td>
+						<td><center>{{ x.nta }}</center></td>
+						<td>{{ x.maxta }}</td>
+						<td>{{ x.leadtime }}</td>
+				      </tr>
+				    </tbody>
+				  </table>
+				  <div id="tramites" style="padding-bottom: 10px "></div>
+            	</div>
+            </div>
+            <!-- /.row -->
+            <div class="row" ng-show="solicitacao != null">
+                <div class="col-lg-8">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> Timeline de Tramite (Solicitação #: {{ solicitacao }})
+                        </div>
+                        <!-- /.panel-heading -->
+                        <div class="panel-body">
+                            <ul class="timeline">
+                                <li ng-repeat="x in tramites" ng-class="{'timeline-inverted' : x.usuario.id == 2}">
+                                    <div class="timeline-badge" ng-class="{'warning' : x.usuario.id == 1, 'danger' : x.usuario.id == 2}"><i ng-class="{'fa fa-group warning' : x.usuario.id == 1, 'fa fa-graduation-cap danger' : x.usuario.id == 2}"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">{{ x.usuario.nome }}</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{ x.dtTramite | date: 'dd/MM/yyyy HH:mm:ss'}}</small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>{{ x.dsObs }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.panel-body -->
+                    </div>
+                    <!-- /.panel -->
+                </div>
+                <!-- /.col-lg-8 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+<script>
+var app = angular.module('reportApp', ['ngResource']);
+app.controller('reportListController', 
+	function($scope, $rootScope, $http, $sce) {
+		$scope.content = null;
+		$scope.select = function (id) {
+			
+			$rootScope.$broadcast('reportSelecionado', id);
+		};
+		
+		$scope.refreshGrid = function(){
+			Util.get($http, 'rest/report/infoGeral', null, function(response1){
+				$("#tmt").html(response1.data[0].tmg);
+				$("#tram").html(response1.data[0].qt);
+				$("#tta").html(response1.data[0].tmag);
+				$("#ttp").html(response1.data[0].tmpg);
+				
+				var callBackSuccess = function(response){$scope.dados = response.data;};
+				Util.get($http, 'rest/report', null, callBackSuccess);
+			});
+		};
+		
+		$rootScope.$on("CallRefreshGrid", function(){
+				$scope.refreshGrid();
+			}
+		);
+		
+		$scope.refreshGrid();
+
+
+		$scope.clearForm = function () {
+	        $scope.solicitacao = null;
+	        $rootScope.$broadcast('clear');
+	        $scope.novo = false;
+	    }
+
+		$scope.$on('reportSelecionado', function (event, id) {
+	    	Util.get($http, 'rest/tramite/filterBySolicitacao/'+id, null, function(response){
+	    												$scope.solicitacao = id;
+	        											$scope.tramites = response.data;
+	        											window.setTimeout(function(){$("#tramites").get(0).scrollIntoView();}, 300);
+      										 });
+	    });
+
+		$scope.pdf = function(){
+			var a = document.createElement("a");
+			a.href= Util.getContext()+"rest/report/pdf";
+			document.body.appendChild(a);
+			a.click();
+
+		}
+
+		$scope.xls = function(){
+			var a = document.createElement("a");
+			a.href= Util.getContext()+"rest/report/xls";
+			document.body.appendChild(a);
+			a.click();
+		}
+	}
+);
+</script>
+    <!-- jQuery -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="vendor/raphael/raphael.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="dist/js/sb-admin-2.js"></script>
+
+</body>
+
+</html>
